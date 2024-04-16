@@ -1,5 +1,5 @@
-import bookshelf from "../config/database";
-import User from "./user";
+import bookshelf from '../config/database';
+import User from './user';
 class Notes extends bookshelf.Model<Notes> {
   get tableName() {
     return 'notes';
@@ -10,7 +10,6 @@ class Notes extends bookshelf.Model<Notes> {
       const notes = await Notes.where<Notes>({ title: title, user_id: id }).fetch();
       return notes;
     } catch (error) {
-      console.error('Error finding user by email:', error);
       return null;
     }
   }
@@ -20,7 +19,6 @@ class Notes extends bookshelf.Model<Notes> {
       const notes = await Notes.where<Notes>({ user_id: id }).fetchAll();
       return notes.toArray() as Notes[];
     } catch (error) {
-      console.error('Error finding user by email:', error);
       return null;
     }
   }

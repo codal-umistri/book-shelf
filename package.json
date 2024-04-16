@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node src/app.ts"
+    "start": "nodemon --exec ts-node src/app.ts",
+    "prepare": "husky",
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [],
   "author": "",
@@ -20,13 +22,16 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^0.21.21",
     "mysql": "^2.18.1",
-    "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/bookshelf": "^1.2.9",
-    "@types/jsonwebtoken": "^9.0.6"
+    "@types/jsonwebtoken": "^9.0.6",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11"
   }
 }

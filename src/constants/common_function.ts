@@ -1,5 +1,5 @@
-import { Response } from "express";
-import { StatusCode } from "../constants/status_utils";
+import { Response } from 'express';
+import { StatusCode } from '../constants/status_utils';
 
 export const handleValidationError = (res: Response, ErrorMessage: string) => {
   return res.status(StatusCode.Bad_Request).json({ message: ErrorMessage });

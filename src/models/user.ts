@@ -10,7 +10,6 @@ class User extends bookshelf.Model<User> {
       const user = await User.where<User>({ email }).fetch();
       return user;
     } catch (error) {
-      console.error('Error finding user by email:', error);
       return null;
     }
   }

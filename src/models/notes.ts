@@ -1,7 +1,5 @@
 import bookshelf from "../config/database";
 import User from "./user";
-
-
 class Notes extends bookshelf.Model<Notes> {
   get tableName() {
     return 'notes';

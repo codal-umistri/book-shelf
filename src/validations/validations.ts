@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomRequest } from "../type/types";
-
-const handleValidationError = (res: Response, ErrorMessage: string) => {
-  return res.status(400).json({ message: ErrorMessage });
-};
+import { StatusCode } from "../constants/status_utils";
+import { handleValidationError } from "../constants/common_function";
 
 const validateEmail = (email: string) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

@@ -1,50 +1,57 @@
-import User from "../models/user";
+import { handleResponses } from '../constants/common_function'
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
+import User from "../models/user";
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import dotenv from "dotenv";
 dotenv.config();
 
-export const ResgisterUser = async (req: Request, res: Response) => {
+export const resgisterUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
     const hashedpassword = bcrypt.hashSync(password, 10);
-    let newUser;
+
     try {
         const user = await User.findByEmail(email);
-        return user ?
-            res.status(201).json({ message: 'User Already exists' })
-            : (
-                newUser = await User.forge<User>({
-                    name,
-                    email,
-                    password: hashedpassword
-                }).save(),
 
-                res.status(201).json({ message: 'User registered successfully', user: newUser.toJSON() }))
+        if (user) {
+            return handleResponses(res, 'User Already exists', 'Conflict');
+        }
+        const newUser = new User({
+            name,
+            email,
+            password: hashedpassword
+        });
+
+        await newUser.save();
+        return handleResponses(res, 'User registered successfully', 'Created', newUser, 'user');
     }
     catch (error: any) {
-        return res.status(500).json({ message: error.message });
+        return handleResponses(res, error.message, 'Internal_Server_Error')
     }
-
 }
 
-
-export const LoginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const secretKey = process.env.SECRET_KEY || 'default_secret_key';
     try {
         const user = await User.findByEmail(email);
 
-        return !user ? res.status(201).json({ message: 'User Not Found' }) :
-            (
-                await bcrypt.compare(password, user?.get('password'))
-                    ? res.status(201).json({ message: 'Login sucessfull', TOKEN: jwt.sign({ id: user?.get('id') }, secretKey as string), })
-                    : res.status(201).json({ message: 'password doesnt match' })
-            )
+        if (!user) {
+            return handleResponses(res, 'User Not Found', 'Not_Found');
+        }
 
+        const isPasswordValid = await bcrypt.compare(password, user.get('password'));
+
+        if (!isPasswordValid) {
+            return handleResponses(res, 'Password does not match', 'Unauthorized');
+        }
+
+        const token = jwt.sign({ id: user.get('id') }, secretKey as string);
+        return handleResponses(res, 'Login successful', 'Success', undefined, undefined, token);
     }
     catch (error: any) {
-        return res.status(500).json({ message: error.message });
-    }
+        return handleResponses(res, error.message, 'Internal_Server_Error')
 
+    }
 }
+

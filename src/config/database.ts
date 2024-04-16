@@ -1,5 +1,3 @@
-// import Knex = require('knex');
-// import bookshelf = require('bookshelf');
 import knex from "knex";
 import bookshelf from "bookshelf";
 
@@ -7,7 +5,6 @@ const knexConfig: knex.Config = require("../../knexfile")
 
 const knexInstance = knex(knexConfig);
 const bookshelfInstance = bookshelf(knexInstance);
-
 
 knexInstance.on('start', () => {
     console.log('Connected to the database!');

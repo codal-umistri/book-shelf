@@ -1,17 +1,16 @@
-import Knex = require('knex');
-import bookshelf = require('bookshelf');
 import path from 'path';
-  
+import dotenv from 'dotenv';
+dotenv.config();
 
-  module.exports = {
-    client: 'mysql',
-    connection: {
-      host: 'localhost',
-      user: 'root',
-      password: 'Terabaap@12345',
-      database: 'users',
-    },
-    migrations: {
-        directory: path.resolve(__dirname, 'src', 'migrations'),
-      },
-  };
+module.exports = {
+  client: 'mysql',
+  connection: {
+    host: process.env.HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  },
+  migrations: {
+    directory: path.resolve(__dirname, 'src', 'migrations'),
+  },
+};

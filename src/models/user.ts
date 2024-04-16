@@ -1,6 +1,5 @@
 import bookshelf from '../config/database';
 import Notes from './notes';
-
 class User extends bookshelf.Model<User> {
   get tableName() {
     return 'users';
@@ -15,13 +14,10 @@ class User extends bookshelf.Model<User> {
       return null;
     }
   }
-  
 
   notes() {
     return this.hasMany(Notes, 'user_id');
   }
-
-
 }
 
 export default User;

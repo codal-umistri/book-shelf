@@ -1,4 +1,4 @@
-import { handleResponses } from '../constants/common_function';
+import { handleResponses } from '../utils/utils';
 import { CustomRequest } from '../type/types';
 import Notes from '../models/notes';
 import { Response } from 'express';

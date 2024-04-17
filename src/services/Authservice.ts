@@ -1,4 +1,4 @@
-import { handleResponses } from '../constants/common_function';
+import { handleResponses } from '../utils/utils';
 import { Response, NextFunction } from 'express';
 import { CustomRequest } from '../type/types';
 import jwt from 'jsonwebtoken';

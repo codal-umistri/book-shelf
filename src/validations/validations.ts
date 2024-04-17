@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CustomRequest } from '../type/types';
-import { handleValidationError } from '../constants/common_function';
+import { handleValidationError } from '../utils/utils';
 
 const validateEmail = (email: string) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
